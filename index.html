@@ -19,6 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 
     <!-- Responsive Meta Tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,27 +30,27 @@
     <div class="main-container d-flex align-items-center justify-content-center">
         <div class="calculator border rounded">
             <div class="display">
-                <p class="history">0</p>
-                <input class="form-control" id="expression" type="text" placeholder="0" readonly>
+                <p class="history" id="previous-expression">0</p>
+                <input class="form-control" id="current-expression" type="text" placeholder="0" readonly>
             </div>
             <div class="buttons-grid">
                 <button id="left-bracket-button" type="button" class="btn btn-dark">(</button>
                 <button id="right-bracket-button" type="button" class="btn btn-dark">)</button>
                 <button id="modulus-button" type="button" class="btn btn-dark">%</button>
                 <button id="delete-button" type="button" class="btn btn-dark">AC</button>
-                <button id="seven-button" type="button" class="btn btn-outline-dark">7</button>
-                <button id="eight-button" type="button" class="btn btn-outline-dark">8</button>
-                <button id="nine-button" type="button" class="btn btn-outline-dark">9</button>
+                <button id="seven-button" type="button" class="btn btn-outline-dark btn-number">7</button>
+                <button id="eight-button" type="button" class="btn btn-outline-dark btn-number">8</button>
+                <button id="nine-button" type="button" class="btn btn-outline-dark btn-number">9</button>
                 <button id="divide-button" type="button" class="btn btn-dark">/</button>
-                <button id="four-button" type="button" class="btn btn-outline-dark">4</button>
-                <button id="five-button" type="button" class="btn btn-outline-dark">5</button>
-                <button id="six-button" type="button" class="btn btn-outline-dark">6</button>
+                <button id="four-button" type="button" class="btn btn-outline-dark btn-number">4</button>
+                <button id="five-button" type="button" class="btn btn-outline-dark btn-number">5</button>
+                <button id="six-button" type="button" class="btn btn-outline-dark btn-number">6</button>
                 <button id="multiply-button" type="button" class="btn btn-dark">*</button>
-                <button id="one-button" type="button" class="btn btn-outline-dark">1</button>
-                <button id="two-button" type="button" class="btn btn-outline-dark">2</button>
-                <button id="three-button" type="button" class="btn btn-outline-dark">3</button>
+                <button id="one-button" type="button" class="btn btn-outline-dark btn-number">1</button>
+                <button id="two-button" type="button" class="btn btn-outline-dark btn-number">2</button>
+                <button id="three-button" type="button" class="btn btn-outline-dark btn-number">3</button>
                 <button id="minus-button" type="button" class="btn btn-dark">-</button>
-                <button id="zero-button" type="button" class="btn btn-outline-dark">0</button>
+                <button id="zero-button" type="button" class="btn btn-outline-dark btn-number">0</button>
                 <button id="decimal-button" type="button" class="btn btn-outline-dark">.</button>
                 <button id="equals-button" type="button" class="btn btn-primary">=</button>
                 <button id="plus-button" type="button" class="btn btn-dark">+</button>
