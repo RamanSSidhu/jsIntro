@@ -9,6 +9,9 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
           crossorigin="anonymous">
 
+    <!-- Additional Styling -->
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
     <!-- Javascript Libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -16,8 +19,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
+
+    <!-- Responsive Meta Tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 
+    <!-- Container that fills body and uses flex box to center align everything -->
+    <div class="main-container d-flex align-items-center justify-content-center">
+        <div class="calculator border rounded">
+            <div class="display">
+                <p class="history">0</p>
+                <input class="form-control" id="expression" type="text" placeholder="0" readonly>
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
