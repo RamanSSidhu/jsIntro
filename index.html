@@ -27,7 +27,7 @@
 <body>
 
     <!-- Container that fills body and uses flex box to center align everything -->
-    <div class="main-container d-flex align-items-center justify-content-center">
+    <div class="main-container d-flex">
         <div class="calculator border rounded">
             <div class="display">
                 <p class="history" id="previous-expression">0</p>
@@ -36,24 +36,24 @@
             <div class="buttons-grid">
                 <button id="left-bracket-button" type="button" class="btn btn-dark">(</button>
                 <button id="right-bracket-button" type="button" class="btn btn-dark">)</button>
-                <button id="modulus-button" type="button" class="btn btn-dark">%</button>
-                <button id="delete-button" type="button" class="btn btn-dark">AC</button>
+                <button id="ce-button" type="button" class="btn btn-dark">CE</button>
+                <button id="ac-button" type="button" class="btn btn-dark">AC</button>
                 <button id="seven-button" type="button" class="btn btn-outline-dark btn-number">7</button>
                 <button id="eight-button" type="button" class="btn btn-outline-dark btn-number">8</button>
                 <button id="nine-button" type="button" class="btn btn-outline-dark btn-number">9</button>
-                <button id="divide-button" type="button" class="btn btn-dark">/</button>
+                <button id="divide-button" type="button" class="btn btn-dark btn-function">/</button>
                 <button id="four-button" type="button" class="btn btn-outline-dark btn-number">4</button>
                 <button id="five-button" type="button" class="btn btn-outline-dark btn-number">5</button>
                 <button id="six-button" type="button" class="btn btn-outline-dark btn-number">6</button>
-                <button id="multiply-button" type="button" class="btn btn-dark">*</button>
+                <button id="multiply-button" type="button" class="btn btn-dark btn-function">*</button>
                 <button id="one-button" type="button" class="btn btn-outline-dark btn-number">1</button>
                 <button id="two-button" type="button" class="btn btn-outline-dark btn-number">2</button>
                 <button id="three-button" type="button" class="btn btn-outline-dark btn-number">3</button>
-                <button id="minus-button" type="button" class="btn btn-dark">-</button>
+                <button id="minus-button" type="button" class="btn btn-dark btn-function">-</button>
                 <button id="zero-button" type="button" class="btn btn-outline-dark btn-number">0</button>
                 <button id="decimal-button" type="button" class="btn btn-outline-dark">.</button>
                 <button id="equals-button" type="button" class="btn btn-primary">=</button>
-                <button id="plus-button" type="button" class="btn btn-dark">+</button>
+                <button id="plus-button" type="button" class="btn btn-dark btn-function">+</button>
             </div>
         </div>
     </div>
