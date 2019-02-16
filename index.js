@@ -108,7 +108,7 @@ $(document).ready(() => {
         // Equals Button:
         // Try to evaluate
         // If Error from "eval", catch and print Error
-        // If NaN, print Error, and store previous expression in history (TODO)
+        // If NaN, print Error, and store previous expression in history
         // If Valid, print value and store previous expression in history
 
         // CE Button:
@@ -133,7 +133,7 @@ $(document).ready(() => {
                         $('#ce-button').prop('disabled', true);
                         wasLastButtonEquals = true;
                     }
-                    if (newExpression == NaN) {
+                    if (isNaN(newExpression)) {
                         currExpression.val("Error");
                         wasLastButtonEquals = true;
                         $('#ce-button').prop('disabled', true);

@@ -10,7 +10,7 @@ body, html {
 }
 
 /* Fill screen for mobile users */
-@media (max-device-width: 600px) {
+@media (max-width: 600px) {
 
     .main-container {
         width: 100%;
@@ -21,6 +21,18 @@ body, html {
         width: 100%;
         height: 100%;
         border-radius: 0;
+    }
+
+    .btn {
+        font-size: 150%;
+    }
+
+    .display {
+        font-size: 150%;
+    }
+
+    .form-control {
+        font-size: 150%;
     }
 }
 
