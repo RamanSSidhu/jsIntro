@@ -6,12 +6,14 @@ $(document).ready(() => {
     // State information
     $('#ce-button').prop('disabled', true);
     let wasLastButtonEquals = false;
+    let isSafeToAddDecimal = true;
 
     // Function button handler
     $('.btn-function').click(event => {
         preEvaluate(event.target);
         $('#ce-button').prop('disabled', false);
         wasLastButtonEquals = false;
+        isSafeToAddDecimal = true;
     });
 
     // Number button handler
@@ -19,12 +21,13 @@ $(document).ready(() => {
 
         if (wasLastButtonEquals) {
             currExpression.val(event.target.textContent);
+            isSafeToAddDecimal = true;
         }
         else {
             preEvaluate(event.target);
-            wasLastButtonEquals = false;
         }
         $('#ce-button').prop('disabled', false);
+        wasLastButtonEquals = false;
     });
 
     // Left bracket button
@@ -41,6 +44,7 @@ $(document).ready(() => {
         else {
             currExpression.val(btnValue);
         }
+        isSafeToAddDecimal = true;
         $('#ce-button').prop('disabled', false);
         wasLastButtonEquals = false;
     });
@@ -60,15 +64,35 @@ $(document).ready(() => {
 
             if (bracketCounter > 0) {
                 currExpression.val(currExpression.val() + btnValue);
+                isSafeToAddDecimal = true;
             }
         }
         else {
             if (currExpression.val() == "-")
             {
                 currExpression.val(currExpression.val() + btnValue);
+                isSafeToAddDecimal = true;
                 $('#ce-button').prop('disabled', false);
                 wasLastButtonEquals = false;
             }
+        }
+    });
+
+    $(`#decimal-button`).click( event => {
+        let btnValue = event.target.textContent;
+
+        if (wasLastButtonEquals) {
+            currExpression.val(btnValue);
+            $('#ce-button').prop('disabled', false);
+            wasLastButtonEquals = false;
+            isSafeToAddDecimal = false;
+        }
+
+        if (isSafeToAddDecimal) {
+            currExpression.val(currExpression.val() + btnValue);
+            $('#ce-button').prop('disabled', false);
+            wasLastButtonEquals = false;
+            isSafeToAddDecimal = false;
         }
     });
 
@@ -112,6 +136,7 @@ $(document).ready(() => {
                     if (newExpression == NaN) {
                         currExpression.val("Error");
                         wasLastButtonEquals = true;
+                        $('#ce-button').prop('disabled', true);
                     }
                     else {
                         currExpression.val(newExpression);
@@ -120,21 +145,27 @@ $(document).ready(() => {
                 } catch (error) {
                     console.log("Expression Evaluation Error: " + error.message);
                     currExpression.val("Error");
+                    $('#ce-button').prop('disabled', true);
                     wasLastButtonEquals = true;
                 }
                 break;
             case `ce-button`:
                 if (currExpression.val().length != 1) {
+                    if (currExpression.val()[currExpression.val().length -1] == ".") {
+                        isSafeToAddDecimal = true;
+                    }
                     currExpression.val(currExpression.val().slice(0, -1));
                 }
                 else {
                     currExpression.val("0");
                     $('#ce-button').prop('disabled', true);
+                    isSafeToAddDecimal = true;
                 }
                 break;
             case `ac-button`:
                 currExpression.val("0");
                 $('#ce-button').prop('disabled', true);
+                isSafeToAddDecimal = true;
                 break;
         }
 
@@ -190,16 +221,19 @@ $(document).ready(() => {
                 currExpression.val() == "-Infinity" || currExpression.val() == "Error")
             {
                 currExpression.val(btnValue);
+                isSafeToAddDecimal = true;
                 return;
             }
 
             // If last char was ")" and current is number, add * (then number later)
             if(lastValue == ")") {
                 currExpression.val(currExpression.val() + "*");
+                isSafeToAddDecimal = true;
             }
         }
 
         currExpression.val(currExpression.val() + btnValue);
+        wasLastButtonEquals = false;
     }
 
     function isLastCharAFunction() {
@@ -232,68 +266,6 @@ $(document).ready(() => {
     }
 
     function evaluate(expression) {
-        return eval(expression.replace(/(\d)\(/g, '$1*('));
+        return eval(expression.replace(/(\d)\.?\(/g, '$1*('));
     }
 })
-
-/*
-// State Variables
-let unclosedBrackets = 0;
-let clearedState = true;
-let decimalAllowed = true;
-let isPrevMathFunction = false;
-
-// Number button handler
-$('.btn-number').click(event => {
-    let btnValue = event.target.textContent;
-
-    if (!clearedState) {
-        currExpression.val(currExpression.val() + btnValue);
-        isPrevMathFunction = false;
-    }
-    else
-    {
-        currExpression.val(btnValue);
-        isPrevMathFunction = false;
-    }
-
-    if (currExpression.text != "0")
-    {
-        clearedState = false;
-    }
-})
-
-// Function button handler
-$('.btn-function').click(event => {
-    let btnValue = event.target.textContent;
-
-    if (isPrevMathFunction)
-    {
-        currExpression.val(currExpression.val().slice(0, -1) + btnValue);
-        isPrevMathFunction = true;
-    }
-    else
-    {
-        currExpression.val(currExpression.val() + btnValue);
-        isPrevMathFunction = true;
-    }
-})
-
-// Decimal Button Handler
-$('.#decimal-button').click(event => {
-    let btnValue = event.target.textContent;
-
-    if (decimalAllowed)
-    {
-        currExpression.val(currExpression.val() + btnValue);
-        decimalAllowed = false;
-    }
-
-}
-
-
-// Equals button handler
-$('#equals-button').click(() => {
-    prevExpression.text(currExpression.val());
-    currExpression.val(eval(currExpression.val()));
-})*/
