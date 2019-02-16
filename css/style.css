@@ -10,7 +10,7 @@ body, html {
 }
 
 /* Fill screen for mobile users */
-@media (max-width: 600px) {
+@media (max-width: 600px), (pointer: coarse) and (max-device-width: 750px) {
 
     .main-container {
         width: 100%;
