@@ -31,7 +31,12 @@ $(document).ready(() => {
     $(`#left-bracket-button`).click(event => {
         let btnValue = event.target.textContent;
         if (currExpression.val() != "0") {
-            currExpression.val(currExpression.val() + btnValue);
+            if (!wasLastButtonEquals) {
+                currExpression.val(currExpression.val() + btnValue);
+            }
+            else {
+                currExpression.val(btnValue);
+            }
         }
         else {
             currExpression.val(btnValue);
@@ -41,8 +46,29 @@ $(document).ready(() => {
     });
 
     $(`#right-bracket-button`).click(event => {
+        let btnValue = event.target.textContent;
+        let bracketCounter = 0;
         if (!isLastCharAFunction()) {
+            for (let i = 0; i < currExpression.val().length; i++) {
+                if (currExpression.val()[i] == "(") {
+                    bracketCounter++;
+                }
+                else if (currExpression.val()[i] == ")") {
+                    bracketCounter--;
+                }
+            }
 
+            if (bracketCounter > 0) {
+                currExpression.val(currExpression.val() + btnValue);
+            }
+        }
+        else {
+            if (currExpression.val() == "-")
+            {
+                currExpression.val(currExpression.val() + btnValue);
+                $('#ce-button').prop('disabled', false);
+                wasLastButtonEquals = false;
+            }
         }
     });
 
@@ -58,7 +84,7 @@ $(document).ready(() => {
         // Equals Button:
         // Try to evaluate
         // If Error from "eval", catch and print Error
-        // If NaN, print Error, and store previous expression in history
+        // If NaN, print Error, and store previous expression in history (TODO)
         // If Valid, print value and store previous expression in history
 
         // CE Button:
@@ -85,13 +111,16 @@ $(document).ready(() => {
                     }
                     if (newExpression == NaN) {
                         currExpression.val("Error");
+                        wasLastButtonEquals = true;
                     }
                     else {
                         currExpression.val(newExpression);
+                        wasLastButtonEquals = true;
                     }
                 } catch (error) {
                     console.log("Expression Evaluation Error: " + error.message);
                     currExpression.val("Error");
+                    wasLastButtonEquals = true;
                 }
                 break;
             case `ce-button`:
@@ -105,6 +134,7 @@ $(document).ready(() => {
                 break;
             case `ac-button`:
                 currExpression.val("0");
+                $('#ce-button').prop('disabled', true);
                 break;
         }
 
@@ -120,28 +150,47 @@ $(document).ready(() => {
         console.log("Button Value: " + btnValue);
         console.log("Button Class: " + btnClass);
 
-        if (currExpression.val() == "Infinity" || currExpression.val() == "Error" || currExpression.val() == "-Infinity")
-        {
-            currExpression.val(btnValue);
-            return;
-        }
-
         // If last char was function, and current is function, replace last char with new
         if(btnClass.includes("btn-function"))
         {
-            if (currExpression.val() == "0")
-            {
-                currExpression.val(currExpression.val() + btnValue);
+            if(currExpression.val() == "Error") {
+                currExpression.val("0" + btnValue);
+                return;
             }
+
+            if (currExpression.val() == "Infinity" || currExpression.val() == "-Infinity") {
+                currExpression.val(currExpression.val() + btnValue);
+                return;
+            }
+
+            if (currExpression.val() == "0") {
+                if (btnValue == "-")
+                {
+                    currExpression.val(btnValue);
+                }
+                else {
+                    currExpression.val(currExpression.val() + btnValue);
+                }
+            }
+
             if (isLastCharAFunction()) {
-                currExpression.val(currExpression.val().slice(0, -1) + btnValue);
+                if (currExpression.val()[currExpression.val().length - 1] != "-" && btnValue == "-")
+                {
+                    currExpression.val(currExpression.val() + btnValue);
+                }
+                else {
+                    currExpression.val(currExpression.val().slice(0, -1) + btnValue);
+                }
+
                 return;
             }
         }
         else {
-            if (currExpression.val() == "0")
+            if (currExpression.val() == "0" || currExpression.val() == "Infinity" ||
+                currExpression.val() == "-Infinity" || currExpression.val() == "Error")
             {
                 currExpression.val(btnValue);
+                return;
             }
 
             // If last char was ")" and current is number, add * (then number later)
