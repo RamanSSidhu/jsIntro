@@ -1,11 +1,20 @@
+/*
+Name: Ramanpreet Sidhu
+Student ID: 30011040
+Tutorial Section: B02
+ */
+
 $(document).ready(() => {
     // Set Previous and Current Expression to paragraph and form
     const prevExpression = $(`#previous-expression`);
     const currExpression = $(`#current-expression`);
 
     // State information
+    // CE Button Status
     $('#ce-button').prop('disabled', true);
+    // True if last button pressed was "="
     let wasLastButtonEquals = false;
+    // True if "safe" to add decimal
     let isSafeToAddDecimal = true;
 
     // Function button handler
@@ -49,6 +58,7 @@ $(document).ready(() => {
         wasLastButtonEquals = false;
     });
 
+    // Right Bracket Handler
     $(`#right-bracket-button`).click(event => {
         let btnValue = event.target.textContent;
         let bracketCounter = 0;
@@ -78,6 +88,7 @@ $(document).ready(() => {
         }
     });
 
+    // Decimal button handler
     $(`#decimal-button`).click( event => {
         let btnValue = event.target.textContent;
 
@@ -96,6 +107,7 @@ $(document).ready(() => {
         }
     });
 
+    // "Other" Button Handler - AC/CE/=
     $('.btn-other').click(event => {
         let btnId = event.target.id;
         let btnValue = event.target.textContent;
